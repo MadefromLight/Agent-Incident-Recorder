@@ -1,0 +1,3 @@
+import test from "node:test";import assert from "node:assert/strict";import {timeline,rootEvents} from "../src/index.js";
+test("orders events",()=>{const i={id:"1",title:"x",severity:"high" as const,status:"open" as const,events:[{id:"2",at:"2026-01-02T00:00:00Z",type:"b"},{id:"1",at:"2026-01-01T00:00:00Z",type:"a"}]};assert.equal(timeline(i)[0].id,"1");});
+test("finds root events",()=>{const i={id:"1",title:"x",severity:"high" as const,status:"open" as const,events:[{id:"1",at:"2026-01-01T00:00:00Z",type:"root"},{id:"2",at:"2026-01-01T00:01:00Z",type:"child",causedBy:"1"}]};assert.equal(rootEvents(i)[0].id,"2");});
